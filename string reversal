@@ -1,0 +1,43 @@
+class Stack:
+    def _init_(self):
+        self.stack=[]
+        self.length=0
+        self.upper_limit=30
+    def push(self,data):
+        self.stack.append(data)
+        if self.length+1>self.upper_limit:
+            print("STACK OVERFLOW")
+        else:    
+            self.length+=1
+           
+    def display(self):
+        for x in self.stack[::-1]:
+            print(x)
+    def pop(self):
+        if self.length==0:
+            print("STACK UNDERFLOW")
+        else:    
+            self.stack.pop()
+            self.length-=1
+        
+    def isEmpty(self):
+        if self.length==0:
+           
+           #print("Stack is empty")
+           return 1
+        else:
+            #print("Stack is not empty")
+            return 0
+    def peek(self):
+        print(self.stack[-1])
+        
+data=input("Enter the string: ")
+stack=Stack()
+for x in data:
+    stack.push(x)
+data=""    
+while not stack.isEmpty():
+    data+=stack.stack[-1]
+    stack.pop()
+print("string after reversal")    
+print(data)
