@@ -1,0 +1,22 @@
+def quicksort(a,low,high):
+    if low<high:
+        pos=partition(a,low,high)
+        quicksort(a,low,pos-1)
+        quicksort(a,pos+1,high)
+def partition(a,low,high):
+    if low==high:
+        return
+    pivot=low
+    while(1):
+        while a[low]<=a[pivot]  :
+            low+=1
+        while a[high]>a[pivot] :
+            high-=1
+        if low<high:
+            a[low],a[high]=a[high],a[low]
+        else:
+            a[high],a[pivot]=a[pivot],a[high]
+            return high
+a=[109,56,45,23,44,334,56]
+quicksort(a,0,len(a)-1)
+print(a)
