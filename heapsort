@@ -1,0 +1,101 @@
+#MAX HEAP USING BINARY TREE REPRESENTATION
+#ADD OR DELETE LAST ELEMENT AND HEAPIFY 
+class Node:
+    def _init_(self,data):
+        self.data=data
+        self.left=None
+        self.right=None
+class Heap:
+    def _init_(self):
+        self.root=None
+    def get_last_parent(self):
+        queue=[self.root]
+        while queue:
+            node=queue.pop(0)
+            if node.left:
+                queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                else:
+                    return node
+            else:
+                return node
+                
+            
+    def get_last(self):
+        queue=[self.root]
+        parent={}
+        final=None
+        while queue:
+            node=queue.pop(0)
+            final=node
+            if node.left:
+                queue.append(node.left)
+                parent[node.left]=node
+            if node.right:
+                queue.append(node.right)
+                parent[node.right]=node
+               
+        return [parent[final],final]
+        
+    def heapify(self,root):
+        #dfs
+  
+        if root.left:
+           
+            self.heapify(root.left)
+            if root.right:
+                self.heapify(root.right)
+            
+                if root.left.data>=root.right.data:
+                    if root.data<root.left.data:
+                        root.data,root.left.data=root.left.data,root.data
+                else:
+                    if root.data<root.right.data:
+                        root.data,root.right.data=root.right.data,root.data                    
+            else:
+                if root.left.data>root.data:
+                    root.data,root.left.data=root.left.data,root.data  
+        
+    def add(self,data):
+        node=Node(data)
+      
+        if self.root==None:
+            self.root=node
+            return
+        
+        parent=self.get_last_parent()
+    
+        if parent.left:
+            parent.right=node
+        else:
+            parent.left=node
+          
+        self.heapify(self.root)
+    def delete(self):
+        if self.root and not self.root.left:
+             print(self.root.data)
+             self.root=None
+             return
+        parent,last_node=self.get_last()
+ 
+        if parent.right:
+            val=parent.right.data
+            parent.right=None
+            print(self.root.data)
+            self.root.data=val
+        else:
+            val=parent.left.data
+            parent.left=None
+            print(self.root.data)
+            self.root.data=val
+            
+        self.heapify(self.root)    
+        
+array=[5,3,7,2,6]
+heap=Heap()
+for i in array:
+
+    heap.add(i)
+for _ in array:
+    heap.delete()
