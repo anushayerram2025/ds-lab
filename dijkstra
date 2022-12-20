@@ -1,0 +1,48 @@
+#Dijkstra shortest path from one vertex to all other vertices.
+import heapq
+INF=99999
+n=6
+vertices=[(0,1,6),(0,1,9),(0,2,3),(0,4,7),(1,2,4),(1,3,2),(1,5,5),(2,3,3),(2,4,8),(3,5,2)]
+source=2
+neighbors={}
+for i in range(n):
+    neighbors[i]=[]
+visit=set()
+visit.add(source)
+for s,d,c in vertices:
+    neighbors[s].append([d,c])
+    neighbors[d].append([s,c])
+p=[]
+
+
+for i in range(n):
+    if i!=s:
+        heapq.heappush(p,[INF,i])
+ 
+
+
+heapq.heapify(p)
+graph={}
+for i in range(n):
+    if i!=source:
+        graph[i]=INF
+        
+
+def f(graph,s,cost,visit,neighbors):
+ 
+    pop=[]
+    if neighbors[s]:
+        for nei,e in neighbors[s]:
+            if nei not in visit:
+                if e+cost<graph[nei]:
+                    graph[nei]=e+cost
+                heapq.heappush(pop,[graph[nei],nei])    
+    while len(visit)<5:
+        c,v=heapq.heappop(pop)
+        if v in visit:
+            continue
+        visit.add(v)
+        f(graph,v,c,visit,neighbors)
+f(graph,source,0,visit,neighbors)
+print(f"Shortest path from source {source} to each vertex is: ")
+print(graph)
