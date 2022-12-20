@@ -1,0 +1,74 @@
+class Stack:
+    def _init_(self):
+        self.stack=[]
+        self.length=0
+        self.upper_limit=30
+    def push(self,data):
+        self.stack.append(data)
+        if self.length+1>self.upper_limit:
+            print("STACK OVERFLOW")
+        else:    
+            self.length+=1
+           
+    def display(self):
+        for x in self.stack[::-1]:
+            print(x)
+    def pop(self):
+        if self.length==0:
+            print("STACK UNDERFLOW")
+        else:    
+            self.stack.pop()
+            self.length-=1
+        
+    def isEmpty(self):
+        if self.length==0:
+           
+           print("Stack is empty")
+        else:
+            print("Stack is not empty")
+    def peek(self):
+        print(self.stack[-1])
+        
+stack=Stack()
+data=input()
+d={"^":0,
+"*":1,
+"/":1,
+"+":2,
+"-":2,
+}
+result=""
+for x in data:
+    print(result)
+    print(stack.stack)
+    if x=="+" or x=="-" or x=="*" or x=="/" or x=="^":
+        if len(stack.stack)>=1:
+            last=stack.stack[-1]
+            
+            if last!="(" and d[last]<=d[x]:
+                result+=last
+                stack.pop()
+                stack.push(x)
+            else:
+                stack.push(x)
+        else:
+            stack.push(x)
+    elif x=="(":
+        stack.push(x)
+    elif x==")":
+        while len(stack.stack)>=1:
+
+            x=stack.stack[-1]
+            stack.pop()
+            if x=="(":
+                break
+            result+=x
+    else:
+        result+=x
+while len(stack.stack)>=1:
+
+    x=stack.stack[-1]
+    stack.pop()
+    
+    result+=x
+print(result)
