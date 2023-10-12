@@ -42,7 +42,7 @@ class binarysearchtree:
          
              return self.search(pivot,root.right)
              
-             
+#deletion also possible....you did in leetcode (striver)             
          
 tree=binarysearchtree()
 tree.add(3)
